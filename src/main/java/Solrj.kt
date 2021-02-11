@@ -6,7 +6,7 @@ import java.io.IOException
 import org.apache.solr.client.solrj.SolrServerException
 import kotlin.jvm.JvmStatic
 import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient
-import java.util.ArrayList
+import org.slf4j.LoggerFactory
 
 object Solrj {
     private fun getRecipe(): List<Recipe> {
@@ -36,6 +36,8 @@ object Solrj {
     @Throws(IOException::class, SolrServerException::class)
     @JvmStatic
     fun main(args: Array<String>) {
+        val logger = LoggerFactory.getLogger(Solrj::class.java.simpleName)
+
         val config = Config(System.getenv())
         val solrUrl = String.format("%s/solr/recipe", config.solrServer)
         val solrClient = ConcurrentUpdateSolrClient.Builder(solrUrl).build()
@@ -43,7 +45,7 @@ object Solrj {
             var updateResponse = solrClient.addBeans(getRecipe())
             if (updateResponse.status == 0) {
                 updateResponse = solrClient.commit()
-                System.out.printf("%s %s", updateResponse.status, updateResponse.response)
+                logger.info(String.format("%s %s", updateResponse.status, updateResponse.response))
             }
             solrClient.commit()
         } catch (e: SolrServerException) {
