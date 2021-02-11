@@ -7,22 +7,8 @@ import org.apache.solr.client.solrj.response.UpdateResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-class Configuration {
-    public String solrServer;
-    private final Map<String, String> envs;
-
-    private Configuration(Map<String, String> envs) {
-        this.envs = envs;
-
-        this.solrServer = envs.get("SOLR_SERVER");
-    }
-
-    static Configuration init(Map<String, String> envs) {
-        return new Configuration(envs);
-    }
-}
+import config.Config;
 
 class Recipe {
     @Field public String id;
@@ -43,7 +29,7 @@ class Recipe {
 
 public class Solrj {
     public static void main(String[] args) throws IOException, SolrServerException {
-        Configuration config = Configuration.init(System.getenv());
+        Config config = Config.init(System.getenv());
 
         Recipe r = new Recipe();
         r.id = "hogehoge1";
