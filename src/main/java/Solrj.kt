@@ -1,4 +1,5 @@
 import config.Config
+import model.Genre
 import model.Recipe
 import kotlin.Throws
 import java.io.IOException
@@ -9,24 +10,25 @@ import java.util.ArrayList
 
 object Solrj {
     private fun getRecipe(): List<Recipe> {
+
         return listOf(
                 Recipe(
-                        "hogehoge1",
-                        "回鍋肉",
-                        "Chinese",
-                        listOf("きゃべつ"),
-                        listOf("半分"),
-                        listOf("きゃべつを切る。"),
+                        id = "hogehoge1",
+                        name = "回鍋肉",
+                        Genre = Genre.Chinese,
+                        ingredients = listOf("きゃべつ"),
+                        ingredients_amount = listOf("半分"),
+                        steps = listOf("きゃべつを切る。"),
                 ),
                 Recipe(
-                        "hogehoge2",
-                        "カレー",
-                        "Japanese",
-                        listOf("たまねぎ", "豚肉"),
-                        listOf("半分", "200g"),
-                        listOf("たまねぎを炒める"),
-                        "https://www.youtube.com/watch?v=BcKNwo7bzJ4",
-                        "我が家のカレーがこれになってしまったと何度も言われたほどウマい、市販のルーで作る【至高のカレー】"
+                        id = "hogehoge2",
+                        name = "カレー",
+                        Genre = Genre.Japanese,
+                        ingredients = listOf("たまねぎ", "豚肉"),
+                        ingredients_amount = listOf("半分", "200g"),
+                        steps = listOf("たまねぎを炒める"),
+                        external_info_url = "https://www.youtube.com/watch?v=BcKNwo7bzJ4",
+                        external_info_title = "我が家のカレーがこれになってしまったと何度も言われたほどウマい、市販のルーで作る【至高のカレー】"
                 )
         )
     }
@@ -43,6 +45,7 @@ object Solrj {
                 updateResponse = solrClient.commit()
                 System.out.printf("%s %s", updateResponse.status, updateResponse.response)
             }
+            solrClient.commit()
         } catch (e: SolrServerException) {
             e.printStackTrace()
             solrClient.rollback()
