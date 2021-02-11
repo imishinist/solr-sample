@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<enumsConfig>
+  <enum name="recipeGenre">
+    <value>Japanese</value>
+    <value>Chinese</value>
+    <value>American</value>
+    <value>French</value>
+    <value>Italian</value>
+  </enum>
+</enumsConfig>
