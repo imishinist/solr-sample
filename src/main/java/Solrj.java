@@ -1,31 +1,11 @@
+import model.Recipe;
+import config.Config;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.beans.Field;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import config.Config;
-
-class Recipe {
-    @Field public String id;
-    @Field public String name;
-    @Field public List<String> ingredients;
-    @Field public List<String> ingredients_amount;
-    @Field public List<String> steps;
-    @Field public String genre;
-    @Field public String external_info_url;
-    @Field public String external_info_title;
-
-    public Recipe() {
-        this.ingredients = new ArrayList<>();
-        this.ingredients_amount = new ArrayList<>();
-        this.steps = new ArrayList<>();
-    }
-}
 
 public class Solrj {
     public static void main(String[] args) throws IOException, SolrServerException {
